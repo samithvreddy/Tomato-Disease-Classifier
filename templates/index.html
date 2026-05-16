@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TomatoDoc — Leaf Disease Classifier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🍅</span>
+        <span class="logo-text">TomatoDoc</span>
+      </div>
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="diagnose">🔬 Diagnose</button>
+        <button class="tab-btn" data-tab="weather">🌦 Weather Risk</button>
+        <button class="tab-btn" data-tab="soil">🪱 Soil Check</button>
+        <button class="tab-btn" data-tab="about">📋 About</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ── HERO ───────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-tag">Mini Project · 4th Semester · AI &amp; ML</p>
+      <h1 class="hero-title">Diagnose Tomato Leaf Diseases<br/><em>in seconds.</em></h1>
+      <p class="hero-sub">Upload a photo of a tomato leaf → get the disease, confidence score, treatment steps, and prevention tips. Powered by MobileNetV2 trained on PlantVillage.</p>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-inner">
+        <div class="badge-num">10</div>
+        <div class="badge-label">disease classes</div>
+      </div>
+      <div class="badge-inner">
+        <div class="badge-num">~18k</div>
+        <div class="badge-label">training images</div>
+      </div>
+      <div class="badge-inner">
+        <div class="badge-num">free</div>
+        <div class="badge-label">no account needed</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       TAB: DIAGNOSE
+  ══════════════════════════════════════════════════════════ -->
+  <section class="tab-panel active" id="tab-diagnose">
+    <div class="container">
+
+      <!-- Upload zone -->
+      <div class="card upload-card" id="uploadCard">
+        <div class="upload-zone" id="dropZone">
+          <input type="file" id="fileInput" accept="image/*" hidden />
+          <div class="upload-idle" id="uploadIdle">
+            <div class="upload-icon">📷</div>
+            <p class="upload-title">Drop a leaf photo here</p>
+            <p class="upload-hint">or <button class="link-btn" onclick="document.getElementById('fileInput').click()">browse files</button></p>
+            <p class="upload-formats">JPG · PNG · WEBP · max 10MB</p>
+          </div>
+          <div class="upload-preview hidden" id="uploadPreview">
+            <img id="previewImg" src="" alt="Preview" />
+            <button class="clear-btn" id="clearBtn">✕ Clear</button>
+          </div>
+        </div>
+        <button class="primary-btn" id="analyseBtn" disabled>Analyse Leaf →</button>
+        <p class="demo-note">⚠️ If no model file is loaded, the app runs in <strong>demo mode</strong> with random predictions.</p>
+      </div>
+
+      <!-- Result panel (hidden until result arrives) -->
+      <div class="result-panel hidden" id="resultPanel">
+
+        <!-- Top result bar -->
+        <div class="result-header" id="resultHeader">
+          <div class="result-name-wrap">
+            <div class="result-label">Detected Disease</div>
+            <div class="result-name" id="resultName">—</div>
+          </div>
+          <div class="confidence-wrap">
+            <div class="result-label">Confidence</div>
+            <div class="confidence-ring-wrap">
+              <svg class="confidence-ring" viewBox="0 0 60 60">
+                <circle class="ring-bg" cx="30" cy="30" r="26"/>
+                <circle class="ring-fill" id="ringFill" cx="30" cy="30" r="26"
+                        stroke-dasharray="163.4" stroke-dashoffset="163.4"/>
+              </svg>
+              <span class="conf-pct" id="confPct">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Low confidence warning -->
+        <div class="low-conf-warning hidden" id="lowConfWarning">
+          ⚠️ <strong>Low confidence result.</strong> The model is uncertain about this diagnosis. Please consult an agricultural officer before taking action.
+        </div>
+
+        <!-- Description -->
+        <div class="result-section">
+          <h3 class="section-title">What is this?</h3>
+          <p class="result-desc" id="resultDesc">—</p>
+        </div>
+
+        <!-- Severity badge -->
+        <div class="severity-wrap" id="severityWrap">
+          <span class="severity-badge" id="severityBadge">—</span>
+        </div>
+
+        <!-- Treatment -->
+        <div class="result-section" id="treatmentSection">
+          <h3 class="section-title">🧪 Treatment Steps</h3>
+          <ol class="step-list" id="treatmentList"></ol>
+        </div>
+
+        <!-- Prevention -->
+        <div class="result-section">
+          <h3 class="section-title">🌿 Prevention Tips</h3>
+          <ul class="tip-list" id="preventionList"></ul>
+        </div>
+
+        <!-- Seasonal risk -->
+        <div class="result-section">
+          <h3 class="section-title">🗓 Seasonal Risk Level</h3>
+          <div class="season-grid">
+            <div class="season-card">
+              <div class="season-name">☔ Monsoon</div>
+              <div class="season-risk" id="riskMonsoon">—</div>
+            </div>
+            <div class="season-card">
+              <div class="season-name">☀️ Summer</div>
+              <div class="season-risk" id="riskSummer">—</div>
+            </div>
+            <div class="season-card">
+              <div class="season-name">❄️ Winter</div>
+              <div class="season-risk" id="riskWinter">—</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="secondary-btn" onclick="resetDiagnose()">← Analyse another leaf</button>
+      </div>
+
+      <!-- Loading state -->
+      <div class="loading-panel hidden" id="loadingPanel">
+        <div class="spinner"></div>
+        <p>Analysing leaf…</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       TAB: WEATHER RISK
+  ══════════════════════════════════════════════════════════ -->
+  <section class="tab-panel hidden" id="tab-weather">
+    <div class="container">
+      <div class="card">
+        <h2 class="card-title">3-Day Disease Risk Forecast</h2>
+        <p class="card-desc">Enter your city name to fetch live temperature and humidity data. We use rule-based thresholds from agricultural research to flag which diseases are likely to spread over the next 3 days.</p>
+
+        <div class="input-row">
+          <input type="text" id="cityInput" class="text-input" placeholder="e.g. Bengaluru, Chennai, Pune" />
+          <button class="primary-btn" id="weatherBtn">Get Forecast →</button>
+        </div>
+
+        <div class="weather-loading hidden" id="weatherLoading">
+          <div class="spinner"></div><p>Fetching forecast…</p>
+        </div>
+
+        <div class="weather-result hidden" id="weatherResult"></div>
+      </div>
+
+      <div class="card info-card">
+        <h3 class="section-title">How this works</h3>
+        <div class="how-steps">
+          <div class="how-step"><span class="how-num">1</span><p>We call the free OpenWeatherMap API with your city name</p></div>
+          <div class="how-step"><span class="how-num">2</span><p>We get average temperature and humidity for each of the next 3 days</p></div>
+          <div class="how-step"><span class="how-num">3</span><p>Each disease has known temperature + humidity thresholds from literature</p></div>
+          <div class="how-step"><span class="how-num">4</span><p>We check which diseases' thresholds are met and flag the risk level</p></div>
+        </div>
+        <p class="note-text">Note: This is rule-based, not an ML forecast. It tells you <em>conditions are right for disease spread</em> — not that disease will definitely appear.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       TAB: SOIL CHECK
+  ══════════════════════════════════════════════════════════ -->
+  <section class="tab-panel hidden" id="tab-soil">
+    <div class="container">
+      <div class="card">
+        <h2 class="card-title">Soil Parameter Checker</h2>
+        <p class="card-desc">Enter your soil readings below. We compare them against ideal ranges for tomato cultivation and flag any issues with specific remedies.</p>
+
+        <div class="soil-form">
+          <div class="soil-row">
+            <label class="soil-label">
+              pH Level
+              <span class="ideal-range">Ideal: 6.0 – 7.0</span>
+            </label>
+            <div class="slider-wrap">
+              <input type="range" id="phSlider" min="4" max="9" step="0.1" value="6.5" class="soil-slider" />
+              <span class="slider-val" id="phVal">6.5</span>
+            </div>
+          </div>
+
+          <div class="soil-row">
+            <label class="soil-label">
+              Moisture (% field capacity)
+              <span class="ideal-range">Ideal: 60 – 80%</span>
+            </label>
+            <div class="slider-wrap">
+              <input type="range" id="moistureSlider" min="0" max="100" step="1" value="70" class="soil-slider" />
+              <span class="slider-val" id="moistureVal">70%</span>
+            </div>
+          </div>
+
+          <div class="soil-row">
+            <label class="soil-label">
+              Nitrogen (N) level
+              <span class="ideal-range">Ideal: 2 – 5 (scale 1–5)</span>
+            </label>
+            <div class="slider-wrap">
+              <input type="range" id="nSlider" min="1" max="5" step="1" value="3" class="soil-slider" />
+              <span class="slider-val" id="nVal">3</span>
+            </div>
+          </div>
+
+          <div class="soil-row">
+            <label class="soil-label">
+              Phosphorus (P) level
+              <span class="ideal-range">Ideal: 2 – 4 (scale 1–5)</span>
+            </label>
+            <div class="slider-wrap">
+              <input type="range" id="pSlider" min="1" max="5" step="1" value="3" class="soil-slider" />
+              <span class="slider-val" id="pVal">3</span>
+            </div>
+          </div>
+
+          <div class="soil-row">
+            <label class="soil-label">
+              Potassium (K) level
+              <span class="ideal-range">Ideal: 2 – 4 (scale 1–5)</span>
+            </label>
+            <div class="slider-wrap">
+              <input type="range" id="kSlider" min="1" max="5" step="1" value="3" class="soil-slider" />
+              <span class="slider-val" id="kVal">3</span>
+            </div>
+          </div>
+
+          <button class="primary-btn" id="soilBtn">Check Soil →</button>
+        </div>
+
+        <div class="soil-result hidden" id="soilResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════
+       TAB: ABOUT
+  ══════════════════════════════════════════════════════════ -->
+  <section class="tab-panel hidden" id="tab-about">
+    <div class="container">
+      <div class="card">
+        <h2 class="card-title">About This Project</h2>
+        <p class="card-desc">This is a mini project built as part of the 4th semester curriculum. The goal was to build something genuinely useful for tomato farmers using AI — and keep it simple enough to actually finish.</p>
+
+        <div class="about-grid">
+          <div class="about-section">
+            <h3 class="section-title">🧠 AI Model</h3>
+            <p>MobileNetV2 pre-trained on ImageNet, fine-tuned on the PlantVillage dataset (tomato subset). The model outputs a disease class and a confidence score. If confidence is below 70%, the app warns you to consult an expert instead of acting on the result.</p>
+          </div>
+          <div class="about-section">
+            <h3 class="section-title">📦 Dataset</h3>
+            <p>PlantVillage dataset — freely available on Kaggle. The tomato subset contains approximately 18,000 leaf images across 10 classes (9 diseases + healthy). Training was done on Google Colab using a free GPU.</p>
+          </div>
+          <div class="about-section">
+            <h3 class="section-title">🌦 Weather Feature</h3>
+            <p>Uses the OpenWeatherMap free-tier API. This is <em>not</em> ML weather prediction — it fetches real forecast data and applies rule-based thresholds drawn from agricultural literature to estimate disease risk.</p>
+          </div>
+          <div class="about-section">
+            <h3 class="section-title">🪱 Soil Feature</h3>
+            <p>A simple lookup-table approach. The user enters soil readings (pH, moisture, NPK on a 1–5 scale), and the app compares them against known ideal ranges for tomato cultivation, flagging issues with specific remedies.</p>
+          </div>
+        </div>
+
+        <div class="team-section">
+          <h3 class="section-title">Team</h3>
+          <div class="team-grid">
+            <div class="team-card"><div class="team-name">Samith V Reddy</div><div class="team-id">1NH24AI203</div></div>
+            <div class="team-card"><div class="team-name">Likith Kumar A</div><div class="team-id">1NH24AI403</div></div>
+            <div class="team-card"><div class="team-name">Sagar Naik R</div><div class="team-id">1NH25AI412</div></div>
+          </div>
+        </div>
+
+        <div class="references-section">
+          <h3 class="section-title">References</h3>
+          <ol class="ref-list">
+            <li>Mohanty, S. P., Hughes, D. P., &amp; Salathé, M. (2016). Using Deep Learning for Image-Based Plant Disease Detection. <em>Frontiers in Plant Science.</em></li>
+            <li>Sandler, M. et al. (2018). MobileNetV2: Inverted Residuals and Linear Bottlenecks. <em>CVPR 2018.</em></li>
+            <li>Hughes, D. &amp; Salathé, M. (2015). An open access repository of images on plant health. <em>ArXiv.</em></li>
+            <li>PlantVillage Dataset — <a href="https://www.kaggle.com/datasets/emmarex/plantdisease" target="_blank">kaggle.com/datasets/emmarex/plantdisease</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>TomatoDoc · Mini Project · 4th Semester · NH Engineering College · 2025</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

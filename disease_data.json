@@ -1,0 +1,267 @@
+{
+  "Tomato_Bacterial_Spot": {
+    "display": "Bacterial Spot",
+    "severity": "medium",
+    "description": "Small, dark, water-soaked spots on leaves, stems, and fruit. Spots turn brown with yellow halos. Common in warm, wet weather.",
+    "treatment": [
+      "Apply copper-based bactericide (e.g., Blitox 50) every 7–10 days",
+      "Remove and destroy heavily infected leaves immediately",
+      "Avoid overhead irrigation — water at the base only",
+      "Do not work in the field when plants are wet"
+    ],
+    "prevention": [
+      "Use certified disease-free seeds or resistant varieties",
+      "Rotate crops — avoid planting tomatoes in the same spot for 2 years",
+      "Maintain wide spacing between plants for air circulation",
+      "Apply a preventive copper spray before the monsoon season"
+    ],
+    "seasonal_risk": {
+      "monsoon": "very_high",
+      "summer": "medium",
+      "winter": "low"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 75,
+      "temp_min": 24,
+      "temp_max": 30
+    }
+  },
+  "Tomato_Early_Blight": {
+    "display": "Early Blight",
+    "severity": "medium",
+    "description": "Dark brown spots with concentric rings (target-board pattern) on older, lower leaves. Caused by the fungus Alternaria solani.",
+    "treatment": [
+      "Spray Mancozeb (0.25%) or Chlorothalonil every 7 days",
+      "Remove infected lower leaves and dispose away from the field",
+      "Apply organic neem oil spray (5ml/litre) as an early intervention",
+      "Avoid excessive nitrogen fertiliser — it encourages lush growth that blight loves"
+    ],
+    "prevention": [
+      "Mulch around plant base to prevent soil splash onto leaves",
+      "Water in the morning so leaves dry before evening",
+      "Use drip irrigation instead of sprinklers",
+      "Plant resistant varieties like Arka Vikas or PKM-1"
+    ],
+    "seasonal_risk": {
+      "monsoon": "high",
+      "summer": "medium",
+      "winter": "low"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 80,
+      "temp_min": 24,
+      "temp_max": 29
+    }
+  },
+  "Tomato_Late_Blight": {
+    "display": "Late Blight",
+    "severity": "high",
+    "description": "Fast-spreading water-soaked lesions on leaves and stems, turning brown-black with a white mould on the underside in humid conditions. Can destroy a crop in days.",
+    "treatment": [
+      "Apply Metalaxyl + Mancozeb (Ridomil Gold) immediately at first sign",
+      "Spray Cymoxanil 8% + Mancozeb 64% every 5–7 days during active infection",
+      "Remove and burn all infected plant material — do NOT compost",
+      "Stop irrigation for 2–3 days to reduce humidity around plants"
+    ],
+    "prevention": [
+      "Avoid dense planting — keep at least 60cm between plants",
+      "Scout the field every 3 days during monsoon season",
+      "Apply preventive Bordeaux mixture (1%) at the start of rainy season",
+      "Never use infected plant debris as mulch"
+    ],
+    "seasonal_risk": {
+      "monsoon": "very_high",
+      "summer": "low",
+      "winter": "medium"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 85,
+      "temp_min": 15,
+      "temp_max": 22
+    }
+  },
+  "Tomato_Leaf_Mold": {
+    "display": "Leaf Mold",
+    "severity": "medium",
+    "description": "Pale green or yellow patches on the upper leaf surface with olive-brown velvety mould underneath. Thrives in high humidity and poor ventilation.",
+    "treatment": [
+      "Spray Chlorothalonil 75% WP (0.2%) or Mancozeb every 10 days",
+      "Improve greenhouse/shade-net ventilation immediately",
+      "Remove badly infected leaves and discard away from the field",
+      "Reduce overhead watering completely"
+    ],
+    "prevention": [
+      "Maintain relative humidity below 85% in covered growing areas",
+      "Prune lower leaves to improve air flow",
+      "Avoid wetting foliage during irrigation",
+      "Use resistant varieties if growing under poly-house conditions"
+    ],
+    "seasonal_risk": {
+      "monsoon": "very_high",
+      "summer": "low",
+      "winter": "high"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 85,
+      "temp_min": 21,
+      "temp_max": 24
+    }
+  },
+  "Tomato_Septoria_Leaf_Spot": {
+    "display": "Septoria Leaf Spot",
+    "severity": "medium",
+    "description": "Numerous small circular spots with dark brown borders and tan/grey centres, often with tiny black dots (pycnidia) inside. Starts on lower leaves and moves up.",
+    "treatment": [
+      "Apply Mancozeb 75% WP or Copper Oxychloride at first sign",
+      "Remove all infected leaves below the first fruit cluster",
+      "Spray every 7–10 days during wet conditions",
+      "Avoid handling plants when wet to prevent spread"
+    ],
+    "prevention": [
+      "Do not plant tomatoes in the same bed for at least 2 seasons",
+      "Keep the base of plants mulched to reduce soil splash",
+      "Stake plants upright to reduce leaf contact with soil",
+      "Use certified disease-free transplants"
+    ],
+    "seasonal_risk": {
+      "monsoon": "high",
+      "summer": "medium",
+      "winter": "low"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 80,
+      "temp_min": 20,
+      "temp_max": 25
+    }
+  },
+  "Tomato_Spider_Mites": {
+    "display": "Spider Mites (Two-spotted)",
+    "severity": "medium",
+    "description": "Tiny mites cause fine yellow stippling on leaves. Heavy infestation leads to bronzing, webbing on undersides of leaves, and leaf drop. Worst in hot, dry conditions.",
+    "treatment": [
+      "Spray Abamectin 1.8% EC (0.5ml/litre) or Spiromesifen",
+      "Wash plants with a strong jet of water to dislodge mites",
+      "Apply neem oil (3%) as an organic alternative",
+      "Rotate miticides — mites develop resistance quickly"
+    ],
+    "prevention": [
+      "Maintain adequate soil moisture — drought stress worsens mite outbreaks",
+      "Avoid excessive nitrogen which promotes soft, mite-attractive growth",
+      "Introduce predatory mites (Phytoseiulus persimilis) as biological control",
+      "Monitor the underside of leaves weekly"
+    ],
+    "seasonal_risk": {
+      "monsoon": "low",
+      "summer": "very_high",
+      "winter": "medium"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 40,
+      "temp_min": 27,
+      "temp_max": 40
+    }
+  },
+  "Tomato_Target_Spot": {
+    "display": "Target Spot",
+    "severity": "medium",
+    "description": "Brown lesions with concentric ring patterns on leaves, stems, and fruit. Similar to early blight but caused by Corynespora cassiicola. Affects all plant parts.",
+    "treatment": [
+      "Apply Fluxapyroxad + Pyraclostrobin or Tebuconazole fungicide",
+      "Remove infected plant parts and destroy",
+      "Spray every 14 days during active disease pressure",
+      "Do not apply the same fungicide class more than twice in a season"
+    ],
+    "prevention": [
+      "Avoid planting in areas with poor drainage",
+      "Scout early — target spot spreads rapidly once established",
+      "Maintain good plant nutrition — stressed plants are more susceptible",
+      "Practise crop rotation with non-solanaceous crops"
+    ],
+    "seasonal_risk": {
+      "monsoon": "high",
+      "summer": "medium",
+      "winter": "low"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 78,
+      "temp_min": 22,
+      "temp_max": 30
+    }
+  },
+  "Tomato_Yellow_Leaf_Curl_Virus": {
+    "display": "Yellow Leaf Curl Virus",
+    "severity": "high",
+    "description": "Leaves curl upward and inward, turn yellow, and plants become stunted. Caused by a virus spread by whiteflies. Infected plants cannot be cured — act fast.",
+    "treatment": [
+      "There is NO cure — remove and destroy infected plants immediately",
+      "Control whitefly vectors with Imidacloprid 17.8% SL (0.3ml/litre)",
+      "Apply yellow sticky traps throughout the field to catch whiteflies",
+      "Do not take cuttings or transplants from infected plants"
+    ],
+    "prevention": [
+      "Use whitefly-resistant or TYLCV-resistant varieties (e.g., Arka Samrat)",
+      "Install 40-mesh insect-proof netting in nurseries",
+      "Scout for whiteflies weekly and spray early",
+      "Maintain a 50-metre gap between new planting and old tomato fields"
+    ],
+    "seasonal_risk": {
+      "monsoon": "medium",
+      "summer": "very_high",
+      "winter": "high"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 50,
+      "temp_min": 25,
+      "temp_max": 35
+    }
+  },
+  "Tomato_mosaic_virus": {
+    "display": "Tomato Mosaic Virus",
+    "severity": "high",
+    "description": "Leaves show mosaic pattern of light and dark green, become distorted or 'fern-like'. Fruit may be discoloured. Spread by contact, tools, and aphids.",
+    "treatment": [
+      "No chemical cure — remove infected plants and destroy immediately",
+      "Disinfect tools with 10% bleach solution between plants",
+      "Control aphid vectors with Thiamethoxam 25% WG",
+      "Wash hands thoroughly after handling infected plants"
+    ],
+    "prevention": [
+      "Use certified virus-free seed",
+      "Do not smoke near tomato plants — tobacco can carry the virus",
+      "Control aphid populations before transplanting",
+      "Avoid wounding plants unnecessarily during cultivation"
+    ],
+    "seasonal_risk": {
+      "monsoon": "medium",
+      "summer": "high",
+      "winter": "medium"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 55,
+      "temp_min": 20,
+      "temp_max": 32
+    }
+  },
+  "Tomato_healthy": {
+    "display": "Healthy",
+    "severity": "none",
+    "description": "No disease detected. Your tomato plant appears healthy. Keep up your current practices.",
+    "treatment": [],
+    "prevention": [
+      "Continue regular scouting — check plants every 3–4 days",
+      "Maintain consistent watering and avoid water stress",
+      "Apply balanced fertiliser (NPK 19:19:19) every 3 weeks",
+      "Keep the field weed-free to reduce pest harborage"
+    ],
+    "seasonal_risk": {
+      "monsoon": "low",
+      "summer": "low",
+      "winter": "low"
+    },
+    "weather_triggers": {
+      "humidity_threshold": 999,
+      "temp_min": 0,
+      "temp_max": 0
+    }
+  }
+}

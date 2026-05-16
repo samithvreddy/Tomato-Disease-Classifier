@@ -1,0 +1,6 @@
+flask>=2.3
+werkzeug>=2.3
+requests>=2.31
+numpy>=1.24
+tensorflow>=2.13
+# tensorflow-cpu>=2.13   # use this instead on a machine without a GPU to save space
